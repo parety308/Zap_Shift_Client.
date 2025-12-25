@@ -1,14 +1,28 @@
 import React from 'react';
 import Logo from '../Logo/Logo';
 import { NavLink } from 'react-router';
+import useAuth from '../../hooks/useAuth/useAuth';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/send-parcel'>Send Percel</NavLink></li>
+        <li><NavLink to='/send-percel'>Send Percel</NavLink></li>
         <li><NavLink to='/coverage'>Coverage</NavLink></li>
-        <li><NavLink to='/be-rider'>Be a Rider</NavLink></li>
     </>
+    const handleLogOut = () => {
+        logOut().then(() => {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Log Out Successfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        })
+            .catch(err => console.log(err));
+    }
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -30,9 +44,16 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
-            </div>
+            {
+                user ? <div className="navbar-end flex gap-4"> 
+                <img className='w-10 h-10 rounded-full' src={user?.photoURL} alt="" />
+                <NavLink onClick={handleLogOut} className="btn bg-lime-300">Sign Out</NavLink>
+                    <NavLink to='/be-rider' className="btn bg-lime-300">Be a Rider</NavLink>
+                </div>
+                    : (<div className="navbar-end flex gap-4">
+                        <NavLink to='/auth/login' className="btn bg-lime-300">Login</NavLink>
+                        <NavLink to='/auth/signup' className="btn bg-lime-300">Sign Up</NavLink></div>)
+            }
         </div>
     );
 };

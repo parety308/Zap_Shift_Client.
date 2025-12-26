@@ -10,6 +10,10 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/send-percel'>Send Percel</NavLink></li>
         <li><NavLink to='/coverage'>Coverage</NavLink></li>
+
+        {
+            user && <li><NavLink to='/dashboard'>DashBoard</NavLink></li>
+        }
     </>
     const handleLogOut = () => {
         logOut().then(() => {
@@ -45,9 +49,9 @@ const Navbar = () => {
                 </ul>
             </div>
             {
-                user ? <div className="navbar-end flex gap-4"> 
-                <img className='w-10 h-10 rounded-full' src={user?.photoURL} alt="" />
-                <NavLink onClick={handleLogOut} className="btn bg-lime-300">Sign Out</NavLink>
+                user ? <div className="navbar-end flex gap-4">
+                    <img className='w-10 h-10 rounded-full' src={user?.photoURL} alt="" />
+                    <NavLink onClick={handleLogOut} className="btn bg-lime-300">Sign Out</NavLink>
                     <NavLink to='/be-rider' className="btn bg-lime-300">Be a Rider</NavLink>
                 </div>
                     : (<div className="navbar-end flex gap-4">

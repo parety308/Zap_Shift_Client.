@@ -1,8 +1,8 @@
 import React, { use } from 'react';
 import ServiceCard from '../ServiceCard/ServiceCard';
-const servicePromise = fetch('services.json').then(res => res.json());
+import { useLoaderData } from 'react-router';
 const OurServices = () => {
-    const service = use(servicePromise)
+    const service = useLoaderData();
     return (
         <div className='w-10/12 mx-auto bg-secondary p-8 rounded-lg my-10'>
             <h1 className="text-4xl font-bold text-white text-center ">Our Services</h1>

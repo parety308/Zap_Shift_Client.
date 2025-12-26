@@ -8,6 +8,9 @@ import SignUp from "../Pages/AuthLayout/SignUP/SignUp";
 import PrivateRoutes from "./PrivateRoutes";
 import SendPercelPage from "../Pages/SendPercelPage/SendPercelPage";
 import BeRider from "../Pages/BeRider/BeRider";
+import DashBoard from "../Pages/DashBoard/DashBoard";
+import Myparcels from "../Pages/MyParcels/Myparcels";
+import ServiceCard from "../components/ServiceCard/ServiceCard";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +19,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: HomePage
+                Component: HomePage,
+                loader:()=>fetch('services.json').then(res => res.json())
             },
             {
                 path: "/coverage",
@@ -25,7 +29,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/send-percel',
-                element: <PrivateRoutes><SendPercelPage /></PrivateRoutes>
+                element: <PrivateRoutes><SendPercelPage /></PrivateRoutes>,
+                loader: () => fetch('/serviceCenters.json').then(res => res.json())
             },
             {
                 path: '/be-rider',
@@ -47,5 +52,15 @@ export const router = createBrowserRouter([
                 Component: SignUp
             }
         ]
+    },
+    {
+        path: 'dashboard',
+        element: <PrivateRoutes><DashBoard /></PrivateRoutes>,
+        children:[
+            {
+                path:'my-parcels',
+                Component:Myparcels
+            }
+        ]
     }
-])
+]);

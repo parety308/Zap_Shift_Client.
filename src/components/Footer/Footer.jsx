@@ -9,7 +9,7 @@ const Footer = () => {
                 <p className="font-bold">
                     ACME Industries Ltd.
                     <br />
-                    Providing reliable tech since 1992
+                    Providing reliable tech since 1995
                 </p>
                 <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
             </aside>

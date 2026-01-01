@@ -68,8 +68,8 @@ const Myparcels = () => {
     }
     return (
         <div>
-            <h2 className="text-3xl text-center font-semibold">
-                All of my parcels : {parcels.length}
+            <h2 className="text-3xl font-semibold w-10/12 mx-auto my-5">
+                My Parcels : {parcels.length}
             </h2>
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 w-10/12 mx-auto">
                 <table className="table">

@@ -14,6 +14,7 @@ import ServiceCard from "../components/ServiceCard/ServiceCard";
 import MyPayments from "../Pages/MyPayments/MyPayments";
 import PaymentSuccessPage from "../Pages/PaymentSuccessPage/PaymentSuccessPage";
 import PaymentCancelledPage from "../Pages/PaymentCancelledPage/PaymentCancelledPage";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
             {
                 path: 'payment-cancelled',
                 Component: PaymentCancelledPage
+            },
+            {
+                path:'payment-history',
+                Component:PaymentHistory
             }
         ]
     }

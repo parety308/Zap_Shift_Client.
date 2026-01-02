@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth/useAuth';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useAxiosSecure from '../../../hooks/useAxiosSecure/useAxiosSecure';
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -24,9 +26,26 @@ const SignUp = () => {
         formData.append('image', profileImg);
         axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMG_API_HOST}`, formData)
           .then(res => {
+            const photoURL = res.data.data.url;
+
+            //create user in database
+            const newUser = {
+              displayName: data.name,
+              email: data.email,
+              photoURL: photoURL
+            }
+            axiosSecure.post('/users', newUser)
+              .then((res) => {
+                if (res.data.insertedId) {
+                  console.log('User created in database');
+                }
+              })
+              .catch(err => console.log(err));
+
+            // Update user profile in firebase
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.url
+              photoURL: photoURL
             };
             updateUserProfile(userProfile)
               .then(() => {

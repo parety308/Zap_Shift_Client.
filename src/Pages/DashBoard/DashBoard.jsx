@@ -1,4 +1,5 @@
 import { CiCreditCard1, CiDeliveryTruck } from 'react-icons/ci';
+import { FaMotorcycle } from 'react-icons/fa';
 import { Link, Outlet } from 'react-router';
 
 const DashBoard = () => {
@@ -49,6 +50,13 @@ const DashBoard = () => {
 
                                 <span><CiCreditCard1 /></span>
                                 <span className="is-drawer-close:hidden">Payment History</span>
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to='/dashboard/rider-application' className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Rider Application">
+                                <span><FaMotorcycle /></span>
+                                <span className="is-drawer-close:hidden">Rider Application</span>
                             </Link>
                         </li>
                     </ul>

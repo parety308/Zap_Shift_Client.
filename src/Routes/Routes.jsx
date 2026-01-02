@@ -15,6 +15,7 @@ import MyPayments from "../Pages/MyPayments/MyPayments";
 import PaymentSuccessPage from "../Pages/PaymentSuccessPage/PaymentSuccessPage";
 import PaymentCancelledPage from "../Pages/PaymentCancelledPage/PaymentCancelledPage";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
+import RidersApplicationPage from "../Pages/RidersApplicationPage/RidersApplicationPage";
 
 export const router = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: HomePage,
-                loader: () => fetch('services.json').then(res => res.json())
+                loader: () => fetch('/services.json').then(res => res.json())
             },
             {
                 path: "/coverage",
@@ -38,7 +39,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/be-rider',
-                element: <PrivateRoutes><BeRider /></PrivateRoutes>
+                element: <PrivateRoutes><BeRider /></PrivateRoutes>,
+                loader: () => fetch('/serviceCenters.json').then(res => res.json())
             }
 
         ]
@@ -80,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path:'payment-history',
                 Component:PaymentHistory
+            },
+            {
+                path:'rider-application',
+                Component:RidersApplicationPage
             }
         ]
     }

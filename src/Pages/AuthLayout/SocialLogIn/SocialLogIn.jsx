@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure/useAxiosSecure";
 
 const SocialLogIn = () => {
     const { setUser, signInGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
     const handleSignIn = (e) => {
         e.preventDefault();
         signInGoogle()
@@ -18,7 +20,20 @@ const SocialLogIn = () => {
                     timer: 1500
                 });
                 setUser(res.user);
-                navigate(location?.state || '/');
+                //create user in database
+                const newUser = {
+                    displayName: res.user.displayName,
+                    email: res.user.email,
+                    photoURL: res.user.photoURL
+                }
+                axiosSecure.post('/users', newUser)
+                    .then((res) => {
+                        if (res.data.insertedId) {
+                            console.log('User created in database');
+                        }
+                        navigate(location?.state || '/');
+
+                    })
             })
             .catch(err => console.log(err));
 
